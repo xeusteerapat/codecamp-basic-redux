@@ -1,8 +1,24 @@
 import React from 'react';
-import { increment, decrement, addFive, subFive, reset } from './actions';
+import {
+  increment,
+  decrement,
+  addFive,
+  subFive,
+  reset,
+  addResults
+} from './actions';
 import { connect } from 'react-redux';
 
-const App = ({ count, increment, decrement, addFive, subFive, reset }) => {
+const App = ({
+  count,
+  results,
+  increment,
+  decrement,
+  addFive,
+  subFive,
+  reset,
+  addResults
+}) => {
   return (
     <div>
       <h1>Hi, Redux</h1>
@@ -12,12 +28,20 @@ const App = ({ count, increment, decrement, addFive, subFive, reset }) => {
       <button onClick={addFive}>Add 5</button>
       <button onClick={subFive}>Sub 5</button>
       <button onClick={reset}>Reset</button>
+      <hr />
+      <button onClick={() => addResults(count)}>Add Result</button>
+      <ul>
+        {results.map(result => (
+          <li key={result.id}>{result.number}</li>
+        ))}
+      </ul>
     </div>
   );
 };
 
 const mapStateToProps = state => ({
-  count: state.count
+  count: state.counterReducer.count,
+  results: state.resultsReducer.results
 });
 
 export default connect(mapStateToProps, {
@@ -25,5 +49,6 @@ export default connect(mapStateToProps, {
   decrement,
   addFive,
   subFive,
-  reset
+  reset,
+  addResults
 })(App);

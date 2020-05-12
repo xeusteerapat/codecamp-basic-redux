@@ -17,3 +17,7 @@ export const subFive = () => {
 export const reset = () => {
   return { type: 'RESET' };
 };
+
+export const addResults = number => {
+  return { type: 'STORE_RESULT', number };
+};
